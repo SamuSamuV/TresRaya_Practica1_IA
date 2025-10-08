@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public class XOXOGameManager : MonoBehaviour
 {
     public Button[] cells;
     public TMP_Text[] cellTexts;
