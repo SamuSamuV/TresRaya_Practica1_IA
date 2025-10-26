@@ -1,3 +1,5 @@
+// Copyright © 2025 Samuel Campos Borrego, Laura Gallego Fernández, Icía Fernández Fornos. Todos los derechos reservados.
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
