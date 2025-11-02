@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 55403f8f44db0454c99dd46f4bb62b00
+guid: 2dd5ea6ce4bc8bd4f8165c35fdb05793
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8333711674347847460
-    second: BlueFile_0
+      213: -2928799579763026659
+    second: RedPiece_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,43 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BlueFile_0
+      name: RedPiece_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 3
-        width: 123
-        height: 122
+        x: 14
+        y: 14
+        width: 483
+        height: 483
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd088f5d265b85c80800000000000000
-      internalID: -8333711674347847460
+      spriteID: d1559e5bc40da57d0800000000000000
+      internalID: -2928799579763026659
       vertices: []
       indices: 
       edges: []
@@ -161,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BlueFile_0: -8333711674347847460
+      RedPiece_0: -2928799579763026659
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
