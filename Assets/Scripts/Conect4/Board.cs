@@ -1,3 +1,5 @@
+// Copyright © 2025 Samuel Campos Borrego, Laura Gallego Fernández, Icía Fernández Fornos. Todos los derechos reservados.
+
 using System.Collections;
 using UnityEngine;
 
@@ -13,6 +15,10 @@ public class Board : MonoBehaviour
     public Vector2 origin = new Vector2(-3f, -2.5f); // bottom-left of grid in world coords (adjust in inspector)
     public float dropSpeed = 8f; // units per second
     public float spawnYOffset = 4f; // how far above the column to spawn
+
+    // Public read-only accessors for search algorithms
+    public int Columns => columns;
+    public int Rows => rows;
 
     public void Init(int cols, int rws)
     {
@@ -37,13 +43,34 @@ public class Board : MonoBehaviour
         }
     }
 
+    // Safe getter for cell content (returns Player.None if out of range)
+    public Player GetCell(int column, int row)
+    {
+        if (grid == null) return Player.None;
+        if (column < 0 || column >= columns || row < 0 || row >= rows) return Player.None;
+        return grid[column, row];
+    }
+
+    // Return a deep copy of the grid (useful for debugging / evaluation)
+    public Player[,] GetGridCopy()
+    {
+        Player[,] copy = new Player[columns, rows];
+        for (int c = 0; c < columns; c++)
+            for (int r = 0; r < rows; r++)
+                copy[c, r] = grid[c, r];
+        return copy;
+    }
+
     public int GetLowestEmptyRow(int column)
     {
+        if (grid == null) return -1;
+        if (column < 0 || column >= columns) return -1;
         for (int r = 0; r < rows; r++)
             if (grid[column, r] == Player.None) return r;
         return -1;
     }
 
+    // Spawn centered on the column X to avoid lateral offsets
     public GameObject SpawnPiece(int column, int spawnRowAboveBoard, Player p)
     {
         Vector2 columnPos = GetWorldPosition(column, spawnRowAboveBoard);
@@ -54,6 +81,7 @@ public class Board : MonoBehaviour
         return go;
     }
 
+    // Drop until close enough, then snap exactly to avoid float-compare issues.
     public IEnumerator DropPieceToRow(GameObject pieceObj, int column, int targetRow)
     {
         Vector2 targetPos = GetWorldPosition(column, targetRow);
@@ -66,9 +94,9 @@ public class Board : MonoBehaviour
         // ensure exact snap
         pieceObj.transform.position = targetPos;
 
-        // set sorting/order so lower filas se dibujen por delante si necesitas evitar solapado raro
+        // set sorting/order so lower rows draw in correct order if you need that behavior
         SpriteRenderer sr = pieceObj.GetComponent<SpriteRenderer>();
-        if (sr != null) sr.sortingOrder = targetRow; // ajusta según tu sistema de sorting
+        if (sr != null) sr.sortingOrder = targetRow;
     }
 
     public Vector2 GetWorldPosition(int column, int row)
@@ -80,6 +108,8 @@ public class Board : MonoBehaviour
 
     public void SetCell(int column, int row, Player p)
     {
+        if (grid == null) return;
+        if (column < 0 || column >= columns || row < 0 || row >= rows) return;
         grid[column, row] = p;
     }
 
@@ -123,4 +153,3 @@ public class Board : MonoBehaviour
         return count;
     }
 }
-
