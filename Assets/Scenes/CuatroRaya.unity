@@ -757,6 +757,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e24a1af611f0a94fac20e5ff7aea1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaxDepth: 6
+  nodeCountLimit: 200000
+  useIterativeDeepening: 1
 --- !u!4 &279656902
 Transform:
   m_ObjectHideFlags: 0
@@ -4365,7 +4368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215bd2622d3935843a749e4d7d133b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchAlgorithm: {fileID: 976093241}
+  searchAlgorithm: {fileID: 279656901}
   aiPlayer: 2
   searchDepth: 6
 --- !u!4 &1820797687
