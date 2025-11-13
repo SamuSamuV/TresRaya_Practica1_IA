@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        RandomInitPlayer();
         board.Init(columns, rows);
         UIManager.Instance.UpdateTurnText(currentPlayer);
     }
@@ -98,5 +99,22 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateTurnText(currentPlayer);
         isBusy = false;
         gameOver = false;
+        RandomInitPlayer();
+    }
+
+    void RandomInitPlayer()
+    {
+        if (Random.Range(1, 3) == 1)
+        {
+            StartCoroutine(AIPlayTurn());
+            currentPlayer = Player.Yellow;
+        }
+
+        else
+        {
+            currentPlayer = Player.Red;
+        }
+
+        UIManager.Instance.UpdateTurnText(currentPlayer);
     }
 }
