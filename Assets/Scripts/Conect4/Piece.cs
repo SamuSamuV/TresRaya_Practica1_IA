@@ -21,12 +21,11 @@ public class Piece : MonoBehaviour
         else if (p == Player.Yellow) sr.sprite = yellowSprite;
         else sr.sprite = null;
 
-        // Optional: fit sprite to board cell (requires Board reference)
         Board board = FindObjectOfType<Board>();
         if (board != null && sr.sprite != null)
         {
             Vector2 spriteSize = sr.sprite.bounds.size;
-            float desiredHeight = board.cellSize.y * 0.9f; // leave small padding
+            float desiredHeight = board.cellSize.y * 0.9f;
             float scale = desiredHeight / spriteSize.y;
             transform.localScale = new Vector3(scale, scale, 1f);
         }

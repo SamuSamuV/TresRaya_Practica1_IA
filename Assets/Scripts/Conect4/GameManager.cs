@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator PlacePieceCoroutine(int column, int row)
     {
         isBusy = true;
-        GameObject pieceObj = board.SpawnPiece(column, rows, currentPlayer); // spawn above board
+        GameObject pieceObj = board.SpawnPiece(column, rows, currentPlayer);
         yield return board.DropPieceToRow(pieceObj, column, row);
 
         board.SetCell(column, row, currentPlayer);

@@ -20,7 +20,6 @@ public class NegaMaxAB : SearchAlgorithmBase
         int bestScore = int.MinValue;
 
         List<int> moves = GetLegalMoves(board);
-        // orden simple: centro primero (mejora poda)
         moves.Sort((a, b) => Math.Abs(b - board.Columns / 2).CompareTo(Math.Abs(a - board.Columns / 2)));
 
         foreach (int col in moves)
@@ -54,9 +53,8 @@ public class NegaMaxAB : SearchAlgorithmBase
             return Evaluate(board, player);
 
         List<int> moves = GetLegalMoves(board);
-        if (moves.Count == 0) return 0; // empate
+        if (moves.Count == 0) return 0;
 
-        // centro primero
         moves.Sort((a, b) => Math.Abs(b - board.Columns / 2).CompareTo(Math.Abs(a - board.Columns / 2)));
 
         int best = int.MinValue;
@@ -77,15 +75,13 @@ public class NegaMaxAB : SearchAlgorithmBase
             best = Math.Max(best, score);
             alpha = Math.Max(alpha, score);
 
-            //  Poda alfa-beta real:
             if (alpha >= beta)
-                break; // cortar ramas inútiles
+                break;
         }
 
         return best;
     }
 
-    // --- utilidades comunes ---
     private List<int> GetLegalMoves(Board board)
     {
         List<int> moves = new List<int>();
@@ -113,7 +109,6 @@ public class NegaMaxAB : SearchAlgorithmBase
         return (p == Player.Red) ? Player.Yellow : Player.Red;
     }
 
-    // --- Evaluación igual que en los demás ---
     private int Evaluate(Board board, Player perspective)
     {
         int score = 0;

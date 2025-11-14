@@ -8,8 +8,8 @@ public class AspirationSearch : SearchAlgorithmBase
 {
     [Header("Search settings")]
     public int defaultMaxDepth = 6;
-    public int nodeCountLimit = 200000; // safety
-    public int initialWindow = 50; // aspiration window (score units)
+    public int nodeCountLimit = 200000;
+    public int initialWindow = 50;
     public bool useIterativeDeepening = true;
 
     private int nodesSearched;
@@ -22,7 +22,6 @@ public class AspirationSearch : SearchAlgorithmBase
 
         nodesSearched = 0;
 
-        // Iterative deepening
         int startDepth = useIterativeDeepening ? 1 : maxDepth;
         for (int depth = startDepth; depth <= maxDepth; depth++)
         {
@@ -34,41 +33,34 @@ public class AspirationSearch : SearchAlgorithmBase
             int resultScore = int.MinValue;
             int resultMove = -1;
 
-            // Try with aspiration window, if fails enlarge window and re-search
             bool done = false;
             while (!done)
             {
                 nodesSearched = 0;
                 resultScore = NegamaxRoot(board, aiPlayer, depth, alpha, beta, out resultMove);
 
-                // fail-low
                 if (resultScore <= alpha)
                 {
-                    // expand window downwards
                     alpha = alpha * 2;
                     window *= 2;
                     if (Math.Abs(alpha) > 1000000) alpha = int.MinValue / 4;
-                    // continue loop -> re-search
                 }
-                // fail-high
+
                 else if (resultScore >= beta)
                 {
-                    // expand window upwards
                     beta = beta * 2;
                     window *= 2;
                     if (Math.Abs(beta) > 1000000) beta = int.MaxValue / 4;
-                    // continue loop -> re-search
                 }
+
                 else
                 {
                     done = true;
                 }
 
-                // safety guard
                 if (nodesSearched > nodeCountLimit) { done = true; }
             }
 
-            // if we got a valid move, store it (deeper results override previous)
             if (resultMove != -1)
             {
                 bestMove = resultMove;
@@ -85,7 +77,6 @@ public class AspirationSearch : SearchAlgorithmBase
         int bestScore = int.MinValue;
 
         List<int> moves = GetLegalMoves(board);
-        // simple ordering: center first (helps alpha-beta)
         moves.Sort((a, b) => Math.Abs(b - board.Columns / 2).CompareTo(Math.Abs(a - board.Columns / 2)));
 
         foreach (int col in moves)
@@ -96,7 +87,7 @@ public class AspirationSearch : SearchAlgorithmBase
             int score;
             if (board.CheckWin(col, row, aiPlayer))
             {
-                score = 1000000 / (1); // immediate win
+                score = 1000000 / (1);
             }
             else
             {
@@ -111,7 +102,7 @@ public class AspirationSearch : SearchAlgorithmBase
                 bestMove = col;
             }
             alpha = Math.Max(alpha, score);
-            if (alpha >= beta) break; // beta cut-off
+            if (alpha >= beta) break;
         }
 
         return bestScore;
@@ -120,17 +111,16 @@ public class AspirationSearch : SearchAlgorithmBase
     private int Negamax(Board board, Player player, int depth, int alpha, int beta)
     {
         nodesSearched++;
-        if (nodesSearched > nodeCountLimit) return 0; // safety
+        if (nodesSearched > nodeCountLimit) return 0;
 
         List<int> moves = GetLegalMoves(board);
-        if (moves.Count == 0) return 0; // draw
+        if (moves.Count == 0) return 0;
         if (depth == 0)
         {
             return Evaluate(board, player);
         }
 
         int best = int.MinValue;
-        // move ordering: center-first
         moves.Sort((a, b) => Math.Abs(b - board.Columns / 2).CompareTo(Math.Abs(a - board.Columns / 2)));
 
         foreach (int col in moves)
@@ -141,7 +131,7 @@ public class AspirationSearch : SearchAlgorithmBase
             int score;
             if (board.CheckWin(col, row, player))
             {
-                score = 1000000 / ((defaultMaxDepth - depth) + 1); // prefer quicker wins
+                score = 1000000 / ((defaultMaxDepth - depth) + 1);
             }
             else
             {
@@ -152,13 +142,11 @@ public class AspirationSearch : SearchAlgorithmBase
 
             best = Math.Max(best, score);
             alpha = Math.Max(alpha, score);
-            if (alpha >= beta) break; // cutoff
+            if (alpha >= beta) break;
         }
 
         return best;
     }
-
-    // Helpers
     private List<int> GetLegalMoves(Board board)
     {
         List<int> moves = new List<int>();
@@ -186,42 +174,35 @@ public class AspirationSearch : SearchAlgorithmBase
     {
         return (p == Player.Red) ? Player.Yellow : Player.Red;
     }
-
-    // Evaluation function: heuristic windows + center control
     private int Evaluate(Board board, Player perspective)
     {
-        // simple but effective heuristic:
-        // + score for 2/3 aligned with open ends, + center weighting
         int score = 0;
-
-        // center column control
         int centerCol = board.Columns / 2;
         int centerCount = 0;
+
         for (int r = 0; r < board.Rows; r++)
             if (board.GetCell(centerCol, r) == perspective) centerCount++;
         score += centerCount * 3;
 
-        // scan all windows of 4
         for (int c = 0; c < board.Columns; c++)
         {
             for (int r = 0; r < board.Rows; r++)
             {
-                // horizontal
                 if (c + 3 < board.Columns)
                 {
                     score += EvaluateWindow(board, c, r, 1, 0, perspective);
                 }
-                // vertical
+
                 if (r + 3 < board.Rows)
                 {
                     score += EvaluateWindow(board, c, r, 0, 1, perspective);
                 }
-                // diag up-right
+
                 if (c + 3 < board.Columns && r + 3 < board.Rows)
                 {
                     score += EvaluateWindow(board, c, r, 1, 1, perspective);
                 }
-                // diag down-right
+
                 if (c + 3 < board.Columns && r - 3 >= 0)
                 {
                     score += EvaluateWindow(board, c, r, 1, -1, perspective);
@@ -249,7 +230,7 @@ public class AspirationSearch : SearchAlgorithmBase
         if (myCount == 3 && emptyCount == 1) return 100;
         if (myCount == 2 && emptyCount == 2) return 10;
 
-        if (oppCount == 3 && emptyCount == 1) return -80; // block urgent
+        if (oppCount == 3 && emptyCount == 1) return -80;
         if (oppCount == 2 && emptyCount == 2) return -5;
 
         return 0;

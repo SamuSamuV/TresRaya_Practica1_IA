@@ -34,8 +34,8 @@ public class MTDF : SearchAlgorithmBase
             int beta = (guess == lowerBound) ? guess + 1 : guess;
             int score = NegamaxRoot(board, aiPlayer, depth, beta - 1, beta, out bestMove);
 
-            if (score < beta) upperBound = score;   // fail-low
-            else lowerBound = score;                // fail-high
+            if (score < beta) upperBound = score;
+            else lowerBound = score;
             guess = score;
         }
 
@@ -109,8 +109,6 @@ public class MTDF : SearchAlgorithmBase
 
         return best;
     }
-
-    // --- Helpers (idénticos a los otros algoritmos) ---
     private List<int> GetLegalMoves(Board board)
     {
         List<int> moves = new List<int>();

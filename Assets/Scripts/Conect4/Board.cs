@@ -9,14 +9,13 @@ public class Board : MonoBehaviour
     public int columns, rows;
 
     [Header("Visuals")]
-    public GameObject piecePrefab; // simple sprite prefab with Piece.cs
+    public GameObject piecePrefab;
     public Transform piecesParent;
     public Vector2 cellSize = new Vector2(1f, 1f);
-    public Vector2 origin = new Vector2(-3f, -2.5f); // bottom-left of grid in world coords (adjust in inspector)
-    public float dropSpeed = 8f; // units per second
-    public float spawnYOffset = 4f; // how far above the column to spawn
+    public Vector2 origin = new Vector2(-3f, -2.5f);
+    public float dropSpeed = 8f;
+    public float spawnYOffset = 4f;
 
-    // Public read-only accessors for search algorithms
     public int Columns => columns;
     public int Rows => rows;
 
@@ -35,7 +34,6 @@ public class Board : MonoBehaviour
             for (int r = 0; r < rows; r++)
                 grid[c, r] = Player.None;
 
-        // destroy spawned pieces
         if (piecesParent != null)
         {
             for (int i = piecesParent.childCount - 1; i >= 0; i--)
@@ -43,7 +41,6 @@ public class Board : MonoBehaviour
         }
     }
 
-    // Safe getter for cell content (returns Player.None if out of range)
     public Player GetCell(int column, int row)
     {
         if (grid == null) return Player.None;
@@ -51,7 +48,6 @@ public class Board : MonoBehaviour
         return grid[column, row];
     }
 
-    // Return a deep copy of the grid (useful for debugging / evaluation)
     public Player[,] GetGridCopy()
     {
         Player[,] copy = new Player[columns, rows];
@@ -70,7 +66,6 @@ public class Board : MonoBehaviour
         return -1;
     }
 
-    // Spawn centered on the column X to avoid lateral offsets
     public GameObject SpawnPiece(int column, int spawnRowAboveBoard, Player p)
     {
         Vector2 columnPos = GetWorldPosition(column, spawnRowAboveBoard);
@@ -81,7 +76,6 @@ public class Board : MonoBehaviour
         return go;
     }
 
-    // Drop until close enough, then snap exactly to avoid float-compare issues.
     public IEnumerator DropPieceToRow(GameObject pieceObj, int column, int targetRow)
     {
         Vector2 targetPos = GetWorldPosition(column, targetRow);
@@ -91,10 +85,8 @@ public class Board : MonoBehaviour
             pieceObj.transform.position = Vector2.MoveTowards(pieceObj.transform.position, targetPos, dropSpeed * Time.deltaTime);
             yield return null;
         }
-        // ensure exact snap
         pieceObj.transform.position = targetPos;
 
-        // set sorting/order so lower rows draw in correct order if you need that behavior
         SpriteRenderer sr = pieceObj.GetComponent<SpriteRenderer>();
         if (sr != null) sr.sortingOrder = targetRow;
     }
