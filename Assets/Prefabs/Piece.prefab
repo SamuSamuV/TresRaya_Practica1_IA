@@ -100,5 +100,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099353271db66e347a5988c9d3f5f3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redSprite: {fileID: 4321422941279472639, guid: 53c27c05bfe385a488c059a7de982ad5, type: 3}
-  yellowSprite: {fileID: 3419382289216256257, guid: 140afbf22a16f4346b9e9cabb2a8df1c, type: 3}
+  MyMelodySprite: {fileID: 4321422941279472639, guid: 53c27c05bfe385a488c059a7de982ad5, type: 3}
+  KuromiSprite: {fileID: 3419382289216256257, guid: 140afbf22a16f4346b9e9cabb2a8df1c, type: 3}

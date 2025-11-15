@@ -30,14 +30,14 @@ public class UIManager : MonoBehaviour
     public void UpdateTurnText(Player p)
     {
         if (turnText == null) return;
-        turnText.text = (p == Player.Red) ? "Red's turn" : "Yellow's turn";
+        turnText.text = (p == Player.MyMelody) ? "MyMelody's turn" : "Kuromi's turn";
     }
 
     public void ShowWinner(Player p)
     {
         if (winnerPanel == null || winnerText == null) return;
         winnerPanel.SetActive(true);
-        winnerText.text = (p == Player.Red) ? "Red wins!" : "Yellow wins!";
+        winnerText.text = (p == Player.MyMelody) ? "MyMelody wins!" : "Kuromi wins!";
 
     }
 

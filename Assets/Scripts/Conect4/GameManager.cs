@@ -3,7 +3,7 @@
 using System.Collections;
 using UnityEngine;
 
-public enum Player { None = 0, Red = 1, Yellow = 2 }
+public enum Player { None = 0, MyMelody = 1, Kuromi = 2 }
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public AIPlayer aiPlayer;
 
     [Header("Gameplay")]
-    public Player currentPlayer = Player.Red;
+    public Player currentPlayer = Player.MyMelody;
     public bool isBusy = false;
     public bool gameOver = false;
 
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
-        currentPlayer = (currentPlayer == Player.Red) ? Player.Yellow : Player.Red;
+        currentPlayer = (currentPlayer == Player.MyMelody) ? Player.Kuromi : Player.MyMelody;
         UIManager.Instance.UpdateTurnText(currentPlayer);
         isBusy = false;
 
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
     {
         StopAllCoroutines();
         board.ClearBoard();
-        currentPlayer = Player.Red;
+        currentPlayer = Player.MyMelody;
         UIManager.Instance.ResetUI();
         UIManager.Instance.UpdateTurnText(currentPlayer);
         isBusy = false;
@@ -107,12 +107,12 @@ public class GameManager : MonoBehaviour
         if (Random.Range(1, 3) == 1)
         {
             StartCoroutine(AIPlayTurn());
-            currentPlayer = Player.Yellow;
+            currentPlayer = Player.Kuromi;
         }
 
         else
         {
-            currentPlayer = Player.Red;
+            currentPlayer = Player.MyMelody;
         }
 
         UIManager.Instance.UpdateTurnText(currentPlayer);

@@ -174,7 +174,7 @@ public class NegaScout : SearchAlgorithmBase
 
     private Player Opponent(Player p)
     {
-        return (p == Player.Red) ? Player.Yellow : Player.Red;
+        return (p == Player.MyMelody) ? Player.Kuromi : Player.MyMelody;
     }
 
     private int Evaluate(Board board, Player perspective)

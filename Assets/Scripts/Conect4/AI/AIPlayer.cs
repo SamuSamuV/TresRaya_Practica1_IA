@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIPlayer : MonoBehaviour
 {
     public SearchAlgorithmBase searchAlgorithm;
-    public Player aiPlayer = Player.Yellow;
+    public Player aiPlayer = Player.Kuromi;
     public int searchDepth = 6;
 
     public void MakeAIMove(Board board)
