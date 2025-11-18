@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class NegaMaxAB : SearchAlgorithmBase
@@ -13,6 +14,8 @@ public class NegaMaxAB : SearchAlgorithmBase
 
     public override int GetBestMove(Board board, Player aiPlayer, int maxDepth, int timeLimitMs = 0)
     {
+        Stopwatch sw = Stopwatch.StartNew();
+
         if (maxDepth <= 0) maxDepth = defaultMaxDepth;
         nodesSearched = 0;
 
@@ -42,7 +45,9 @@ public class NegaMaxAB : SearchAlgorithmBase
             }
         }
 
-        Debug.Log($"[NegaMaxAB] Move={bestMove}, Score={bestScore}, Nodes={nodesSearched}");
+        sw.Stop();
+        UnityEngine.Debug.Log($"NegaMaxAB tardó {sw.ElapsedMilliseconds} ms (profundidad: " + maxDepth + ", nodos: " + nodesSearched + ")");
+
         return bestMove;
     }
 

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class AspirationSearch : SearchAlgorithmBase
@@ -16,6 +17,8 @@ public class AspirationSearch : SearchAlgorithmBase
 
     public override int GetBestMove(Board board, Player aiPlayer, int maxDepth, int timeLimitMs = 0)
     {
+        Stopwatch sw = Stopwatch.StartNew();
+
         if (maxDepth <= 0) maxDepth = defaultMaxDepth;
         int bestMove = -1;
         int bestScore = 0;
@@ -67,6 +70,9 @@ public class AspirationSearch : SearchAlgorithmBase
                 bestScore = resultScore;
             }
         }
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"AspirationSearch tardó {sw.ElapsedMilliseconds} ms (profundidad: " + maxDepth + ", nodos: " + nodesSearched + ")");
 
         return bestMove;
     }

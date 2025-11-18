@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class MTDF : SearchAlgorithmBase
@@ -11,6 +12,8 @@ public class MTDF : SearchAlgorithmBase
 
     public override int GetBestMove(Board board, Player aiPlayer, int maxDepth, int timeLimitMs = 0)
     {
+        Stopwatch sw = Stopwatch.StartNew();
+
         if (maxDepth <= 0) maxDepth = defaultMaxDepth;
         nodesSearched = 0;
 
@@ -18,7 +21,9 @@ public class MTDF : SearchAlgorithmBase
         int guess = 0;
         int bestScore = MTD(board, aiPlayer, guess, maxDepth, out bestMove);
 
-        Debug.Log($"[MTD(f)] Move={bestMove}, Score={bestScore}, Nodes={nodesSearched}");
+        sw.Stop();
+        UnityEngine.Debug.Log($"MTD tardó {sw.ElapsedMilliseconds} ms (profundidad: " + maxDepth + ", nodos: " + nodesSearched + ")");
+
         return bestMove;
     }
 
