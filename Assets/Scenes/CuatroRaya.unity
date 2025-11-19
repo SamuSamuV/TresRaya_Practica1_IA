@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 0, b: 0.96862745, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2783,10 +2783,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1382854953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 814, y: 408}
-  m_SizeDelta: {x: 103.5381, y: 103.5381}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -146, y: -132}
+  m_SizeDelta: {x: 103.538086, y: 103.538086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1086905450
 MonoBehaviour:
@@ -3844,7 +3844,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1971373418195114960, guid: f91b8918e9d52804db89daa3bd391a04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4551,7 +4551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215bd2622d3935843a749e4d7d133b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchAlgorithm: {fileID: 1381936991}
+  searchAlgorithm: {fileID: 976093241}
   aiPlayer: 2
   searchDepth: 6
 --- !u!4 &1820797687
@@ -5187,7 +5187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 0, b: 0.96968555, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
